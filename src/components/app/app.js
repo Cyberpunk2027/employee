@@ -19,9 +19,13 @@ class App extends Component {
                 {name: 'Alex Mercer', salary: 1000, increase: false, id: 2},
         
                 {name: 'Adam Jensen', salary: 15000, increase: true, id: 3}
-            ]
+            ],
+        
         }
+        this.maxId = 4;
+        
     }
+    
     
     deleteItem = (id) => {
         this.setState(({data}) => {
@@ -38,6 +42,24 @@ class App extends Component {
         })
     }
 
+    addItem = (name, salary) => {
+        const newItem = { // создаём переменную с пустыми значениями
+            name,
+            salary,
+            increase: false,
+            id: this.maxId++ //инкремент айдишника
+        }
+        this.setState(({data}) => {
+            const newArr = [...data, newItem] //новый массив с данными из data + новый массив
+
+            return{
+                data: newArr //передаем в дату новый массив 
+            }
+        })
+
+        
+    }
+
     render() {
         return (
             <div className="app">
@@ -51,7 +73,7 @@ class App extends Component {
                 <EmployeesList 
                 data={this.state.data}
                 onDelete={this.deleteItem}/>
-                <EmployeesAddForm/>
+                <EmployeesAddForm onAdd={this.addItem}/>
     
     
     

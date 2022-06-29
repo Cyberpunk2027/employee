@@ -16,6 +16,15 @@ class EmployeesAddForm extends Component {
         })
     }
     
+    onSubmit = (e) => { //фун-я сабмита нового пользователя
+        e.preventDefault()
+        this.props.onAdd(this.state.name, this.state.salary) //добавляем в пропсы состояния имени и з/п
+        this.setState({ //состояние- пустые поля по дефолту
+            name: '',
+            salary: ''
+        })
+    }
+
     render() {
         const {name, salary} = this.state
 
@@ -23,7 +32,8 @@ class EmployeesAddForm extends Component {
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>
                 <form
-                    className="add-form d-flex">
+                    className="add-form d-flex"
+                    onSubmit={this.onSubmit} /*добавляем в верстку функцию самбита, срабатывает на действие в форме в принципе*/> 
                     <input type="text"
                         className="form-control new-post-label"
                         placeholder="Как его зовут?"
