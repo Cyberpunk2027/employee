@@ -61,27 +61,27 @@ class App extends Component {
         
     }
 
-    onToggleIncrease = (id) => {
+    onToggleProp = (id, prop) => { // в аргументах идентификатор и то, что я буду менять
         this.setState(({data}) => ({
             data: data.map(item => { // map создает новый массив через коллбэк фун-ю внутри
                 if(item.id === id) { //затем идет перебор объектов в массиве data и если находим нужный объект
-                    return{...item, increase: !item.increase} //то он вернет новый объект, а не старый, в котором increase поменялся на противоположный
+                    return{...item, [prop]: !item[prop]} //то он вернет новый объект, а не старый, в котором increase поменялся на противоположный
                 }
                 return item;
             })
         }))
     }
 
-    onToggleRise = (id) => {
-        this.setState(({data}) => ({
-            data: data.map(item => { // map создает новый массив через коллбэк фун-ю внутри
-                if(item.id === id) { //затем идет перебор объектов в массиве data и если находим нужный объект
-                    return{...item, star: !item.star} //то он вернет новый объект, а не старый, в котором increase поменялся на противоположный
-                }
-                return item;
-            })
-        }))
-    }
+    // onToggleRise = (id) => {
+    //     this.setState(({data}) => ({
+    //         data: data.map(item => { // map создает новый массив через коллбэк фун-ю внутри
+    //             if(item.id === id) { //затем идет перебор объектов в массиве data и если находим нужный объект
+    //                 return{...item, star: !item.star} //то он вернет новый объект, а не старый, в котором increase поменялся на противоположный
+    //             }
+    //             return item;
+    //         })
+    //     }))
+    // }
 
     render() {
         const employees = this.state.data.length
@@ -98,8 +98,7 @@ class App extends Component {
                 <EmployeesList 
                 data={this.state.data}
                 onDelete={this.deleteItem}
-                onToggleIncrease={this.onToggleIncrease}
-                onToggleRise={this.onToggleRise}/>
+                onToggleProp={this.onToggleProp}/>
                 <EmployeesAddForm onAdd={this.addItem}/>
     
     
