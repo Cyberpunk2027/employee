@@ -39,13 +39,15 @@ class EmployeesAddForm extends Component {
                         placeholder="Как его зовут?"
                         name="name"
                         value={name} // если мы хотим компонент рендерил, контроллировал поведение в ответ на действия пользователя, нужен этот атрибут
-                        onChange={this.onValueChange}/>
+                        onChange={this.onValueChange}
+                        minLength="2"/>
                     <input type="number"
                         className="form-control new-post-label"
                         placeholder="З/П в $?"
                         name="salary"
                         value={salary} // если мы хотим компонент рендерил, контроллировал поведение в ответ на действия пользователя, нужен этот атрибут
-                        onChange={this.onValueChange}/>
+                        onChange={this.onValueChange}
+                        min="3"/>
     
                     <button type="submit"
                             className="btn btn-outline-light">Добавить</button>
