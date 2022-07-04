@@ -20,7 +20,8 @@ class App extends Component {
         
                 {name: 'Adam Jensen', salary: 15000, increase: true, star: false, id: 3}
             ],
-        term: ''
+        term: '',
+        filter: 'all'
         
         }
         this.maxId = 4;
@@ -87,18 +88,33 @@ class App extends Component {
         this.setState({term})
     }
 
+    filterPost = (items, filter) => { 
+        switch (filter) {
+            case 'rised': //если выбран фильтр на повышение
+                return items.filter(item => item.star); // то возвращаются айтемы, где star это true
+            case 'moreThan1000': //если выбран фильтр зп больше 1000
+                return items.filter(item => item.salary > 1000); //то возвращаются айтемы, где зп выше 1000
+            default:
+                return items //самая первая кнопка все сотрудники, там оставляем пустую строчку
+        }
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState({filter})
+    }
+
     render() {
-        const {data, term} = this.state
+        const {data, term, filter} = this.state
         const employees = this.state.data.length
         const increased = this.state.data.filter(item => item.increase).length //получение айтемов где положительное значение increase
-        const visibleData = this.searchEmp(data, term)
+        const visibleData = this.filterPost(this.searchEmp(data, term), filter) //комбинируем поиск и фильтр в одно целое
         return (
             <div className="app">
                 <AppInfo employees={employees} increased={increased}/>
     
                 <div className="search-panel">
                     <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
-                    <AppFilter/>
+                    <AppFilter filter={filter} onFilterSelect={this.onFilterSelect}/>
                 </div>
     
                 <EmployeesList 
